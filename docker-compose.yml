@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  databricks-local:
+    user: "${UID}:${GID}"
+    group_add:
+    - "users"  # your user's group id
+    build: .
+    container_name: databricks-local
+    ports:
+      - "8888:8888"  # JupyterLab
+      - "4040:4040"  # Spark UI
+      - "5050:5050"  # MLflow (if run inside notebook)
+    volumes:
+      - ./notebooks:/home/jovyan/work

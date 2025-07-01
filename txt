@@ -1,0 +1,25 @@
+# 1. Download & install Docker Desktop (manual)
+# 2. Add docker CLI to PATH
+export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin
+
+# 3. Install buildx
+docker buildx install
+
+# 4. Install standalone docker-compose (optional)
+brew install docker-compose
+
+# 5. Fix project folder permissions
+sudo chown -R $(id -u):$(id -g) ./notebooks
+chmod -R u+rwx ./notebooks
+
+# 6. Export user IDs for docker-compose
+export UID=$(id -u)
+export GID=$(id -g)
+
+# 7. Give read access at port to access notebooks
+
+sudo chown -R 501:20 ./notebooks
+
+# 8. Build and run your environment
+docker-compose build
+docker-compose up
