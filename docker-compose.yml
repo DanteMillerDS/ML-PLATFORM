@@ -3,12 +3,17 @@ services:
     build: .
     container_name: databricks-local
     ports:
-      - "8888:8888"
-      - "4040:4040"
-      - "5050:5050"
+      - "8888:8888"   # JupyterLab
+      - "4040:4040"   # Spark UI
+      - "5050:5050"   # MLflow UI
+      - "3000:3000"   # React dev server
     volumes:
       - ./notebooks:/home/jovyan/work
+      - ./react-app:/home/jovyan/work/react-app  # mount your React app source here
     environment:
       - GRANT_SUDO=yes
       - JUPYTER_ENABLE_LAB=yes
-    command: start-notebook.sh
+    command: >
+      bash -c "start-notebook.sh & 
+               cd /home/jovyan/work/react-app && 
+               npm start"
