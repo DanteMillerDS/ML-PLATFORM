@@ -20,6 +20,10 @@ export GID=$(id -g)
 
 sudo chown -R 501:20 ./notebooks
 
+#java -version
+export JAVA_HOME=$(/usr/libexec/java_home)
+echo $JAVA_HOME
+
 # 8. Build and run your environment
 docker-compose build
 docker-compose up
